@@ -5,8 +5,8 @@ Compile Spring-Boot
 gradel publishes files to .M2 at ~/.gradle/caches/modules-2/files-2.1
 
 ### Links
-[gRPC Github](https://github.com/grpc/grpc/blob/master/doc/g_stands_for.md)
-[Google Developer](https://developers.google.com/protocol-buffers)
+[gRPC Github](https://github.com/grpc/grpc/blob/master/doc/g_stands_for.md)  
+[Google Developer](https://developers.google.com/protocol-buffers) 
 
 ### Overview
 Remote Proceedure Call (RPC) are based on HTTP and some are built ontop of 
