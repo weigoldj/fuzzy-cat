@@ -2,20 +2,22 @@
 
 Compile Spring
 Compile Spring-Boot
-gradel publishes files to .M2 at ~/.gradle/caches/modules-2/files-2.1
+gradle publishes files to .M2 at ~/.gradle/caches/modules-2/files-2.1
 
 ### Links
+```
 [gRPC Github](https://github.com/grpc/grpc/blob/master/doc/g_stands_for.md)  
-[Google Developer](https://developers.google.com/protocol-buffers) 
+[Google Developer](https://developers.google.com/protocol-buffers)
+```
 
 ### Overview
-Remote Proceedure Call (RPC) are based on HTTP and some are built ontop of 
+Remote Proceedure Call (RPC) are based on HTTP and some are built ontop of
 REpresentational State Transfer (REST).
 
 gRPC is built on HTTP 2.0 and supports full duplex
 
 
-gRPC focuses on optimizing 3 layers of the OSI model, (Application, 
+gRPC focuses on optimizing 3 layers of the OSI model, (Application,
 Presentation and Session).
 
 
@@ -23,11 +25,11 @@ Presentation and Session).
 Protoc files define the cotract between systems.
 Example Protoc file
 
-The number is the position of field.  Priortize message fields with fields that 
+The number is the position of field.  Priortize message fields with fields that
 will always be filled out first and optional ones at the end.  A limit of 15(?)
 
-```syntax = "proto2";
-
+```
+syntax = "proto2";
 message Film {
     string title = 1;
     string director = 2;
@@ -36,6 +38,7 @@ message Film {
     repeated string characters = 5;
 }
 ```
+
 ### Nested Types
 ```
 syntax = "proto2";
@@ -116,12 +119,11 @@ service Starwars {
 ```
 
 ### Defining Proto Files
-To keep the proto files easy to read define all messages at the root level then include them 
+To keep the proto files easy to read define all messages at the root level then include them
 in the nested message.  If you have multiple proto messages define the proto message in a
 file with similar name.
 
 ```
-
 syntax = "proto2";
 
 message Character {
@@ -155,6 +157,3 @@ message Film {
 ```
 
 ### Polymorphism
-
-
-

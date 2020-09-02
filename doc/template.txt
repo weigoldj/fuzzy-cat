@@ -1,0 +1,7 @@
+### Contents
+
+<<CONTENTS_LIST>>
+
+<div class="footer">
+    &copy; 2020 Fuzzy-Cat
+</div>
