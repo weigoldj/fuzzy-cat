@@ -9,48 +9,56 @@ options = {
   :markdown_file => "test.md"
 }
 OptionParser.new do |opts|
-    opts.banner = "Usage: example.rb [options]"
+  opts.banner = "Usage: example.rb [options]"
 
-      opts.on("-v", "--verbose", "Run verbosely") do |v|
-            options[:verbose] = v
-      end
+  opts.on("-v", "--verbose", "Run verbosely") do |v|
+    options[:verbose] = v
+  end
 
-      opts.on("-l", "--list", "list notes") do |v|
-        puts Dir.entries(@notes_dir)
-        puts ""
-        exit
-      end
+  opts.on("-l", "--list", "list notes") do |v|
+    puts Dir.entries(@notes_dir)
+    puts ""
+    exit
+  end
 
-      opts.on("-p", "--print FILE","print file") do |v|
-        options[:markdown_file] = v
-        parsed = TTY::Markdown.parse_file("#{@notes_dir}/#{options[:markdown_file]}.md")
-        puts parsed
-        puts "MD => #{options[:markdown_file]}"
-        exit
-      end
+  opts.on("-p", "--print FILE","print file") do |v|
+    options[:markdown_file] = v
+    parsed = TTY::Markdown.parse_file("#{@notes_dir}/#{options[:markdown_file]}.md")
+    puts parsed
+    puts "MD => #{options[:markdown_file]}"
+    exit
+  end
 
-      opts.on("-c", "--contents", "Create a New ReadMe with Contents") do |v|
+  opts.on("-c", "--contents", "Create a New ReadMe with Contents") do |v|
 
-        # load the file as a string
-        data = File.read("doc/template.txt")
-        contents = ""
-        Dir.glob("#{@notes_dir}*.md") do |f|
-          contents += "<div> <a href=\"#{f}\">#{f}</a> </div>"
-        end
+    # load the file as a string
+    data = File.read("doc/template.txt")
+    contents = ""
+    Dir.glob("#{@notes_dir}*.md") do |f|
+      contents += "<div> <a href=\"#{f}\">#{f}</a> </div>"
+    end
 
-        # globally substitute "install" for "latest"
-        filtered_data = data.gsub("<<CONTENTS_LIST>>", contents)
-        # open the file for writing
-        File.open("README.md", "w") do |f|
-          f.write(filtered_data)
-        end
-        exit
-      end
+    # globally substitute "install" for "latest"
+    filtered_data = data.gsub("<<CONTENTS_LIST>>", contents)
+    # open the file for writing
+    File.open("README.md", "w") do |f|
+      f.write(filtered_data)
+    end
+    exit
+  end
 
-      opts.on("-h", "--help", "Prints this help") do
-        puts opts
-        exit
-      end
+
+  opts.on("-e", "--edit FILE", "Edit a file") do |f|
+    if(File.file?("doc/#{f}"))
+      system('vim', "doc/#{f}")
+    elsif(File.file?("doc/#{f}.md"))
+      system('vim', "doc/#{f}.md")
+    end
+  end
+  opts.on("-h", "--help", "Prints this help") do
+    puts opts
+    exit
+  end
 end.parse!
 
 p options
