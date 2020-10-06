@@ -1,10 +1,10 @@
 
 ### Stash
-'''
+```
 git stash 
 git stash list
 git stash apply stash{number}
-'''
+```
 
 
 ### Show Logs
