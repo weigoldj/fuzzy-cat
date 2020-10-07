@@ -20,3 +20,8 @@ git push origin <branch name>
 git push --set-upstream origin <branch name>
 
 ```
+### Stream
+```
+git remote -v   # list remote
+git remote set-url origin <path to git repo>   # set the remote.
+```
