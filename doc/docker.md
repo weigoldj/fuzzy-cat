@@ -114,6 +114,62 @@ docker container exec -it nginx_1 ping nginx_2
 
 
 
+# Persistent Data
+Containers are immutable and ephemeral, or unchanging and disposable.
+This design goal seperates the application from the data it might create, 
+think db.
+
+To persist data we use Volumes or Bind Mounts
+
+VOLUME /var/lib/docker will mount a this directry in the container to a 
+physical location on the host.  This location will outlive the container 
+and require you to manually delete the data.
+
+docker inspect <container>
+docker volume ls
+docker insepct <returned mount point>
+
+even if you delete the containers the volumes still live.
+
+Named volume  
+-v mysql-db:/var/lib/mysql  
+
+docker container run -d --name mysql -e MYSQL_ALLOW_EMPTY_PASSWORD=True -v mysql-db:/var/lib/mysql mysql
+
+BIND MOUNT 
+maps host file or directory to continer file or directory
+need to be setup at runtime using -v
+run -v /Users/mount:/path/container
+
+# DB Upgrades Example
+to find the volume mount look inside the docker file
+ docker container run -d --name pg1 -v pg-db:/var/lib/postgresql/data postgres:9.6.1
+docker container ls
+docker volume ls
+docker logs pg1
+docker container stop pg1
+
+# Bind Mount Example 
+docker container run -d --name jkl -p 8080:4000 -v $(pwd):/srv/jekyll jekyll/jekyll jekyll serve
+
+docker run -v $(pwd):/site bretfisher/jekyll new .
+$ docker run -p 8080:4000 -v $(pwd):/site bretfisher/jekyll-serve
+
+## Docker compose
+Two parts 1) yaml file that describes networks, containers volumes
+	  2) docker-compose used for local dev/test automation
+
+# Commands 
+docker-compose up
+docker-compose down
+
+# Kubernetes
+popular container orchestrator
+
+
+
+
+
 
 
 
