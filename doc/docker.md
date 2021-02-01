@@ -16,6 +16,8 @@ https://labs.play-with-k8s.com/
 Image = is the binaries, source code libraries
 container = is a running instance.
 	    or is simply a process that runs on your machine
+semantic versioning - V2.3.4 => 2 api change, 3 add features, 4 bug patch/fixes
+
 
 ## docker commands
 docker version 
@@ -152,7 +154,7 @@ docker container stop pg1
 # Bind Mount Example 
 docker container run -d --name jkl -p 8080:4000 -v $(pwd):/srv/jekyll jekyll/jekyll jekyll serve
 
-docker run -v $(pwd):/site bretfisher/jekyll new .
+docker run -v $(pwd):/site bretfisher/jekyll new 
 $ docker run -p 8080:4000 -v $(pwd):/site bretfisher/jekyll-serve
 
 ## Docker compose
@@ -167,6 +169,39 @@ docker-compose down
 popular container orchestrator
 
 
+
+POD - basic unit of deployment (1 or more containers)
+controllers are used to deploy pods.
+SERVICE Network endpoint to connect to a pod
+NAMESPACE FILTER of your view at the command line (not a security feature)
+CONFIG MAPS
+SECRETS
+
+
+
+KUBECTL 
+kubectl run ( used for pod creation)
+kubectl create (create some resources via cli or yml)
+kubectl apply (create update via yml)
+
+ You can bootstrap a cluster as follows:
+ 1. Initializes cluster master node:
+ kubeadm init --apiserver-advertise-address $(hostname -i) --pod-network-cidr 10.5.0.0/16
+
+To start using your cluster, you need to run the following as a regular user:
+  mkdir -p $HOME/.kube
+  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+ 2. Initialize cluster networking:
+kubectl apply -f https://raw.githubusercontent.com/cloudnativelabs/kube-router/master/daemonset/kubeadm-kuberouter.yaml
+
+ 3. (Optional) Create an nginx deployment:
+ kubectl apply -f https://raw.githubusercontent.com/kubernetes/website/master/content/en/examples/application/nginx-app.yaml
+
+COMMANDS
+kubectl run my-eginx --image eginx
+kubectl get pods
 
 
 
